@@ -1,0 +1,18 @@
+services:
+  app:
+    build: ./app
+    # container_name: python_app
+    restart: always
+    expose:
+      - "3000" # Відкриваємо порт тільки для інших контейнерів, не для інтернету
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_proxy
+    restart: always
+    ports:
+      - "8080:80" # Відкриваємо 80 порт для всього світу
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app # Nginx запуститься тільки після того, як стартує додаток
