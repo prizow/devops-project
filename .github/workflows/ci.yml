@@ -1,0 +1,20 @@
+name: Docker Build CI
+
+# 1. Коли запускати цей конвеєр? (Тригер)
+on:
+  push:
+    branches: [ "main" ]
+
+# 2. Що саме робити? (Завдання)
+jobs:
+  build-test:
+    runs-on: ubuntu-latest # GitHub виділить нам сервер на останній Ubuntu
+
+    steps:
+      # Крок 1: Завантажити наш код на сервер GitHub
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Крок 2: Спробувати зібрати Docker-образи з нашого docker-compose.yml
+      - name: Test Docker Compose Build
+        run: docker compose build
