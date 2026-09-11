@@ -5,7 +5,18 @@ services:
     restart: always
     expose:
       - "3000" # Відкриваємо порт тільки для інших контейнерів, не для інтернету
-
+ db:
+    image: postgres:15-alpine
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: devops_user
+      POSTGRES_PASSWORD: devops_password
+      POSTGRES_DB: devops_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
   nginx:
     image: nginx:alpine
     container_name: nginx_proxy
@@ -41,3 +52,5 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     depends_on:
       - prometheus
+volumes:
+  pg_data:
