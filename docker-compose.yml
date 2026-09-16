@@ -68,5 +68,5 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     depends_on:
       - prometheus
-  volumes:
+volumes:
   pg_data:
