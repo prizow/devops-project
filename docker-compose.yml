@@ -37,11 +37,13 @@ services:
     container_name: nginx_proxy
     restart: always
     ports:
-      - "8080:80" # Відкриваємо 80 порт для всього світу
+      - "80:80"
+      - "443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
     depends_on:
-      - app # Nginx запуститься тільки після того, як стартує додаток
+      - app
   node-exporter:
     image: prom/node-exporter:latest
     container_name: node-exporter
